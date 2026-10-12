@@ -11,12 +11,24 @@ import { Label } from "../ui/label";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
-import { useActionState } from "react";
+import { useActionState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { registerAction } from "@/actions/auth";
 import { Loader2 } from "lucide-react";
 
 export default function RegisterForm() {
+  const router = useRouter();
   const [state, formAction, isPending] = useActionState(registerAction, null);
+
+  useEffect(() => {
+    if (state?.success) {
+      const timer = setTimeout(() => {
+        router.push(state.redirect || "/login");
+      }, 1500);
+
+      return () => clearTimeout(timer);
+    }
+  }, [state?.success, state?.redirect, router]);
   return (
     <Card className="bg-app-card border border-app-border">
       <CardHeader>
@@ -26,6 +38,11 @@ export default function RegisterForm() {
         <CardDescription className="text-white/70 text-center">
           Faça seu cadastro para usar o sistema
         </CardDescription>
+        {state?.message && (
+          <p className="text-green-400 text-sm font-medium text-center bg-green-500/10 border border-green-500/20 p-2 rounded">
+            {state.message}
+          </p>
+        )}
       </CardHeader>
       <CardContent>
         <form action={formAction}>
