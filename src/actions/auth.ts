@@ -1,7 +1,8 @@
 "use server";
 import { apiClient } from "@/lib/api";
 import { AuthResponse, RegisterResponse, User } from "@/lib/types";
-import { setToken } from "@/lib/auth";
+import { removeToken, setToken } from "@/lib/auth";
+import { redirect } from "next/navigation";
 
 export async function registerAction(
   prevState: {
@@ -91,4 +92,9 @@ export async function loginAction(
     }
     return { success: false, error: "Erro ao realizar login" };
   }
+}
+
+export async function logoutAction() {
+  await removeToken();
+  redirect("/login");
 }

@@ -1,6 +1,7 @@
 import { cookies } from "next/headers";
 import { apiClient } from "@/lib/api";
 import { User } from "./types";
+import { redirect } from "next/navigation";
 
 const COOKIE_NAME = "auth_token";
 
@@ -41,4 +42,15 @@ export async function getUser(): Promise<User | null> {
     console.error("Erro ao buscar usuário:", error);
     return null;
   }
+}
+
+export async function requireAdmin(): Promise<User | null> {
+  const user = await getUser();
+  if (!user) {
+    redirect("/login");
+  }
+  if (user.role !== "ADMIN") {
+    redirect("/access-denied");
+  }
+  return user;
 }
