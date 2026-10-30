@@ -1,3 +1,5 @@
+import { MobileSidebar } from "@/components/dashboard/mobile-sidebar";
+import Sidebar from "@/components/dashboard/sidebar";
 import { requireAdmin } from "@/lib/auth";
 
 export default async function DashboardLayout({
@@ -7,11 +9,15 @@ export default async function DashboardLayout({
 }) {
   const user = await requireAdmin();
   return (
-    <div className="flex flex-col min-h-screen bg-app-background">
-      <header className="bg-app-header text-white p-4">
-        <h1 className="text-2xl font-bold">Dashboard</h1>
-      </header>
-      <main className="grow p-4">{children}</main>
+    <div className="flex h-screen overflow-hidden text-white">
+      <Sidebar name={user?.name || "usuário"} />
+
+      <div className="flex flex-1 flex-col overflow-hidden">
+        <MobileSidebar />
+        <main className="flex-1 overflow-y-auto bg-app-background">
+          <div className="container max-w-full px-4 py-6">{children}</div>
+        </main>
+      </div>
     </div>
   );
 }

@@ -34,11 +34,16 @@ export async function getUser(): Promise<User | null> {
 
   try {
     const user = await apiClient<User>("/me", {
-      token: token,
+      token,
+      cache: "no-store",
     });
 
     return user;
   } catch (error) {
+    if (error instanceof Error && error.message === "Token inválido") {
+      return null;
+    }
+
     console.error("Erro ao buscar usuário:", error);
     return null;
   }
