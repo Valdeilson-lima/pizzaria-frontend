@@ -27,3 +27,19 @@ export interface Category {
   createdAt: string;
   updatedAt: string;
 }
+
+export interface Product {
+  id: string;
+  name: string;
+  price: number;
+  description: string;
+  banner: string;
+  disabled?: boolean;
+  category_id: string;
+  category?: {
+    id: string;
+    name: string;
+  };
+  createdAt: string;
+  updatedAt: string;
+}

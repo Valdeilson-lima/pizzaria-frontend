@@ -4,6 +4,7 @@ import { getToken } from "@/lib/auth";
 import { Category } from "@/lib/types";
 import { formatarData } from "@/lib/uteis";
 import { Tags } from "lucide-react";
+import CategoryForm from "@/components/dashboard/category-form";
 
 export default async function CategoriesPage() {
   const token = await getToken();
@@ -21,7 +22,7 @@ export default async function CategoriesPage() {
           </p>
         </div>
 
-        <button>TESTE</button>
+        <CategoryForm />
       </div>
 
       {categories.length !== 0 ? (

@@ -13,6 +13,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useActionState, useEffect } from "react";
 import { loginAction } from "@/actions/auth";
+import { toast } from "sonner";
 
 export default function LoginForm() {
   const router = useRouter();
@@ -20,13 +21,16 @@ export default function LoginForm() {
 
   useEffect(() => {
     if (state?.success) {
+      toast.success(state.message || "Login realizado com sucesso!");
       const timer = setTimeout(() => {
         router.push(state.redirect || "/dashboard");
       }, 1500);
 
       return () => clearTimeout(timer);
+    } else if (state?.error) {
+      toast.error(state.error);
     }
-  }, [state?.success, state?.redirect, router]);
+  }, [state?.success, state?.error, state?.message, state?.redirect, router]);
   return (
     <Card className="bg-app-card border border-app-border">
       <CardHeader>

@@ -62,3 +62,56 @@ export function formatarDataHora(
 // Aliases em inglês por conveniência
 export const formatDate = formatarData;
 export const formatDateTime = formatarDataHora;
+
+/**
+ * Formata um valor em centavos vindo do banco de dados para o padrão monetário brasileiro (BRL - R$).
+ * Exemplo: 4500 centavos -> "R$ 45,00"
+ */
+export function formatarPreco(
+  valorEmCentavos: number | string | null | undefined
+): string {
+  if (
+    valorEmCentavos === null ||
+    valorEmCentavos === undefined ||
+    valorEmCentavos === ""
+  ) {
+    return "R$ 0,00";
+  }
+
+  const centavos =
+    typeof valorEmCentavos === "string"
+      ? parseInt(valorEmCentavos.replace(/\D/g, ""), 10)
+      : valorEmCentavos;
+
+  if (isNaN(centavos)) return "R$ 0,00";
+
+  return new Intl.NumberFormat("pt-BR", {
+    style: "currency",
+    currency: "BRL",
+  }).format(centavos / 100);
+}
+
+/**
+ * Formata automaticamente a digitação de moeda em tempo real e extrai os centavos inteiros.
+ * Exemplo:
+ * Digita "4"    -> display: "R$ 0,04", centavos: 4
+ * Digita "45"   -> display: "R$ 0,45", centavos: 45
+ * Digita "4500" -> display: "R$ 45,00", centavos: 4500
+ */
+export function formatarInputMoeda(value: string): {
+  display: string;
+  centavos: number;
+} {
+  const digitsOnly = value.replace(/\D/g, "");
+  if (!digitsOnly) {
+    return { display: "", centavos: 0 };
+  }
+
+  const centavos = parseInt(digitsOnly, 10);
+  const display = new Intl.NumberFormat("pt-BR", {
+    style: "currency",
+    currency: "BRL",
+  }).format(centavos / 100);
+
+  return { display, centavos };
+}

@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "doop": {
+      "type": "http",
+      "url": "http://localhost:4400/mcp",
+      "headers": {
+        "Authorization": "Bearer dpk_KawFCPDtspovNCkYPvlrUwU_yVt7yunI"
+      }
+    }
+  }
+}

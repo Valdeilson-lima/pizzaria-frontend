@@ -15,6 +15,7 @@ import { useActionState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { registerAction } from "@/actions/auth";
 import { Loader2 } from "lucide-react";
+import { toast } from "sonner";
 
 export default function RegisterForm() {
   const router = useRouter();
@@ -22,13 +23,16 @@ export default function RegisterForm() {
 
   useEffect(() => {
     if (state?.success) {
+      toast.success(state.message || "Cadastro realizado com sucesso!");
       const timer = setTimeout(() => {
         router.push(state.redirect || "/login");
       }, 1500);
 
       return () => clearTimeout(timer);
+    } else if (state?.error) {
+      toast.error(state.error);
     }
-  }, [state?.success, state?.redirect, router]);
+  }, [state?.success, state?.error, state?.message, state?.redirect, router]);
   return (
     <Card className="bg-app-card border border-app-border">
       <CardHeader>
