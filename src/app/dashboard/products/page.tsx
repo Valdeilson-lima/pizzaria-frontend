@@ -93,7 +93,7 @@ export default async function ProductsPage() {
                   <h3 className="font-bold text-base md:text-lg text-white line-clamp-1 group-hover:text-brand-primary transition-colors">
                     {product.name}
                   </h3>
-                  <p className="text-gray-300 text-sm line-clamp-2 min-h-[40px]">
+                  <p className="text-gray-300 text-sm line-clamp-2 min-h-10">
                     {product.description || "Sem descrição disponível."}
                   </p>
                 </div>
