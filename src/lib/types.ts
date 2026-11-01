@@ -62,5 +62,5 @@ export interface Order {
   draft: boolean;
   createdAt: string;
   updatedAt?: string;
-  orderItems: OrderItem[];
+  orderItems?: OrderItem[];
 }
