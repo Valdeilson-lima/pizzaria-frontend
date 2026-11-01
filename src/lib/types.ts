@@ -35,11 +35,32 @@ export interface Product {
   description: string;
   banner: string;
   disabled?: boolean;
-  category_id: string;
+  category_id?: string;
   category?: {
     id: string;
     name: string;
   };
+  createdAt?: string;
+  updatedAt?: string;
+}
+
+export interface OrderItem {
+  id: string;
+  amount: number;
+  order_id?: string;
+  product_id?: string;
+  product: Product;
+  createdAt?: string;
+  updatedAt?: string;
+}
+
+export interface Order {
+  id: string;
+  table: number;
+  name: string | null;
+  status: boolean;
+  draft: boolean;
   createdAt: string;
-  updatedAt: string;
+  updatedAt?: string;
+  orderItems: OrderItem[];
 }
