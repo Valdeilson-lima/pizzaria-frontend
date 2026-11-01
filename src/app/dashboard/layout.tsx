@@ -14,8 +14,10 @@ export default async function DashboardLayout({
 
       <div className="flex flex-1 flex-col overflow-hidden">
         <MobileSidebar />
-        <main className="flex-1 overflow-y-auto bg-app-background">
-          <div className="container max-w-full px-4 py-6">{children}</div>
+        <main className="flex-1 overflow-y-auto bg-app-background scrollbar-gutter-stable">
+          <div className="container max-w-7xl mx-auto px-4 sm:px-6 py-6">
+            {children}
+          </div>
         </main>
       </div>
     </div>

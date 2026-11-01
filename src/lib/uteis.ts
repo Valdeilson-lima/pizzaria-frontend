@@ -64,6 +64,35 @@ export const formatDate = formatarData;
 export const formatDateTime = formatarDataHora;
 
 /**
+ * Retorna o tempo decorrido amigável em português (ex: "agora", "há 4 min", "há 1h 15m").
+ */
+export function tempoDecorrido(
+  date: string | Date | number | null | undefined
+): string {
+  if (!date) return "";
+  const parsedDate = date instanceof Date ? date : new Date(date);
+  if (isNaN(parsedDate.getTime())) return "";
+
+  const diffMs = Date.now() - parsedDate.getTime();
+  if (diffMs < 0) return "agora";
+
+  const diffSeconds = Math.floor(diffMs / 1000);
+  const diffMinutes = Math.floor(diffSeconds / 60);
+  const diffHours = Math.floor(diffMinutes / 60);
+  const diffDays = Math.floor(diffHours / 24);
+
+  if (diffMinutes < 1) return "agora";
+  if (diffMinutes < 60) return `há ${diffMinutes} min`;
+  if (diffHours < 24) {
+    const remainingMinutes = diffMinutes % 60;
+    return remainingMinutes > 0
+      ? `há ${diffHours}h ${remainingMinutes}m`
+      : `há ${diffHours}h`;
+  }
+  return `há ${diffDays}d`;
+}
+
+/**
  * Formata um valor em centavos vindo do banco de dados para o padrão monetário brasileiro (BRL - R$).
  * Exemplo: 4500 centavos -> "R$ 45,00"
  */

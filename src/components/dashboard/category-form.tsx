@@ -9,7 +9,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Button } from "../ui/button";
-import { Loader2, Plus } from "lucide-react";
+import { Loader2, Plus, Tags } from "lucide-react";
 import { useState } from "react";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
@@ -56,41 +56,56 @@ export default function CategoryForm() {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger
         render={
-          <Button className="bg-brand-primary text-white hover:bg-brand-primary-hover transition-colors flex items-center cursor-pointer font-bold">
-            <Plus className=" h-4 w-4" />
+          <Button className="bg-brand-primary text-white hover:bg-brand-primary-hover transition-all duration-200 flex items-center cursor-pointer font-bold shadow-md shadow-brand-primary/20">
+            <Plus className="h-4 w-4 mr-1.5" />
             Nova Categoria
           </Button>
         }
       />
-      <DialogContent className="bg-app-card text-white border-app-border p-6">
-        <DialogHeader>
-          <DialogTitle>Nova Categoria</DialogTitle>
-          <DialogDescription>
-            Preencha os campos abaixo para criar uma nova categoria.
+      <DialogContent className="bg-app-card text-white border-app-border p-6 shadow-2xl">
+        <DialogHeader className="space-y-1.5 pr-8">
+          <div className="flex items-center gap-2 text-brand-primary mb-1">
+            <Tags className="w-5 h-5" />
+            <span className="text-xs font-semibold uppercase tracking-wider">
+              Cardápio
+            </span>
+          </div>
+          <DialogTitle className="text-xl font-bold text-white">
+            Nova Categoria
+          </DialogTitle>
+          <DialogDescription className="text-muted-foreground text-xs sm:text-sm">
+            Adicione uma nova categoria para organizar pizzas, bebidas ou
+            sobremesas.
           </DialogDescription>
         </DialogHeader>
-        <form className="grid gap-4 py-4" onSubmit={handleCreateCategory}>
-          <div className="">
-            <Label htmlFor="name" className="text-right mb-3">
+
+        <form className="space-y-4 pt-3" onSubmit={handleCreateCategory}>
+          <div className="space-y-1.5">
+            <Label
+              htmlFor="name"
+              className="text-xs font-semibold text-gray-200"
+            >
               Nome da categoria
             </Label>
             <Input
               id="name"
               name="name"
-              placeholder="Digite o nome da categoria"
-              className="border-app-border bg-app-background text-white"
+              placeholder="Ex: Pizzas Especiais, Bebidas..."
+              required
+              className="border-app-border bg-app-background text-white text-sm h-10 focus-visible:ring-brand-primary"
               disabled={loading}
             />
           </div>
+
           <Button
             type="submit"
             disabled={loading}
-            className="w-full bg-brand-primary text-white hover:bg-brand-primary-hover transition-colors cursor-pointer font-bold disabled:opacity-50"
+            className="w-full bg-brand-primary text-white hover:bg-brand-primary-hover transition-all duration-200 cursor-pointer font-bold h-10 shadow-md shadow-brand-primary/20 disabled:opacity-50"
           >
             {loading ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                Criando...
+                Criando categoria...
               </>
             ) : (
               "Criar Categoria"

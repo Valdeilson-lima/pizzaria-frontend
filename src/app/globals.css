@@ -9,10 +9,16 @@
   --color-brand-primary: oklch(
     0.62 0.25 12
   ); /* #FF3F4B - Vermelho da pizzaria */
+  --color-brand-primary-hover: oklch(
+    0.55 0.25 12
+  ); /* Hover mais escuro e saturado */
+  --color-brand-primary-subtle: oklch(
+    0.62 0.25 12 / 0.15
+  ); /* Fundo sutil para badges e destaques */
   --color-brand-primary-foreground: oklch(
     1 0 0
   ); /* Branco para texto sobre brand */
-  --color-app-background: oklch(0.1804 0.03 268.34); /*  Background principal */
+  --color-app-background: oklch(0.1804 0.03 268.34); /* Background principal */
   --color-app-card: oklch(0.2204 0.0305 269.66); /* Card levemente mais claro */
   --color-app-border: oklch(
     0.3491 0.0199 269.56
@@ -138,9 +144,25 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-app-background;
+    @apply bg-app-background text-white antialiased;
   }
   html {
     @apply font-sans;
+  }
+
+  /* Scrollbar customizada e sutil para o tema escuro */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: oklch(0.3491 0.0199 269.56 / 0.5);
+    border-radius: 9999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: oklch(0.62 0.25 12 / 0.6);
   }
 }
