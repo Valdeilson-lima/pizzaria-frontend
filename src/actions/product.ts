@@ -102,7 +102,6 @@ export async function deleteProduct(productId: string) {
       error instanceof Error
         ? error.message
         : "Erro desconhecido ao desativar produto.";
-    console.error("Erro ao desativar produto:", errorMessage);
     return { success: false, error: errorMessage };
   }
 }
